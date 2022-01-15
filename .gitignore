@@ -12,3 +12,5 @@ out
 *.jpg
 *.mov
 *.mp4
+*.gif
+*.sh

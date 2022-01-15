@@ -8,7 +8,7 @@ Drop[] drops = new Drop[dropCount];
 void setup() {
   size(640, 360, P3D);
   
-  gravity = new PVector(0, 0.02, 0);
+  gravity = new PVector(0, 0.01, 0);
   wind = new PVector(0, 0, 0);
   
   for (int i = 0; i < dropCount; i++) {
@@ -19,7 +19,7 @@ void setup() {
 void draw() {
   background(230, 230, 250);
   
-  wind = new PVector(map(mouseX, 0, width, -0.02, 0.02), 0, map(mouseY, 0, height, -0.02, 0.02));
+  wind = new PVector(map(mouseX, 0, width, -0.03, 0.03), 0, map(mouseY, 0, height, -0.03, 0.03));
   
   for (Drop drop : drops) {
     drop.applyForce(gravity);
@@ -27,4 +27,6 @@ void draw() {
     drop.update();
     drop.display();
   }
+  
+  //saveFrame(frameCount + ".jpg");
 }
