@@ -15,17 +15,19 @@ class Box {
         for (int z = -1; z < 2; z++) {
           int sum = abs(x) + abs(y) + abs(z);
           float newR = size / 3;
-          // inverted fractal
-          if (sum <= 1) {
-            Box b = new Box(position.x + x * newR, position.y + y * newR, position.z + z * newR, newR);
-            boxes.add(b);
+          if (isInverted) {
+            // inverted fractal
+            if (sum <= 1) {
+              Box b = new Box(position.x + x * newR, position.y + y * newR, position.z + z * newR, newR);
+              boxes.add(b);
+            }
+          } else {
+            // menger sponge
+            if (sum > 1) {
+              Box b = new Box(position.x + x * newR, position.y + y * newR, position.z + z * newR, newR);
+              boxes.add(b);
+            }
           }
-          
-          // menger sponge
-          //if (sum > 1) {
-          //  Box b = new Box(position.x + x * newR, position.y + y * newR, position.z + z * newR, newR);
-          //  boxes.add(b);
-          //}
         }
       }
     }

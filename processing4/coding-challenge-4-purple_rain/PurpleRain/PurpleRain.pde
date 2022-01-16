@@ -29,5 +29,5 @@ void draw() {
     drop.display();
   }
   
-  saveFrame(frameCount + ".jpg");
+  saveFrame("frame" + frameCount + ".png");
 }

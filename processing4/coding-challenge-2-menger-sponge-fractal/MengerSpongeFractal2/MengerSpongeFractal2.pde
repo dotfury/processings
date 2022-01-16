@@ -1,13 +1,12 @@
 Box b;
-Box container;
 
 ArrayList<Box> sponge;
 
 float count = 0;
 float angle = 0;
-float angle2 = 0;
 
 boolean isIncreasing = true;
+boolean isInverted = true;
 
 void setup() {
   frameRate(24);
@@ -16,8 +15,6 @@ void setup() {
   sponge = new ArrayList<Box>();
   b = new Box(0, 0, 0, 200);
   sponge.add(b);
-  
-  container = new Box(0, 0, 0, 200);
 }
 
 void increaseBoxes() {  
@@ -31,9 +28,7 @@ void increaseBoxes() {
 }
 
 void draw() {
-  background(51);
-  noStroke();
-  //lights();
+  background(30);
   
   sponge = new ArrayList<Box>();
   b = new Box(0, 0, 0, 200);
@@ -49,26 +44,16 @@ void draw() {
   translate(width / 2, height / 2);
   rotateX(angle);
   rotateY(angle * 0.4);
+  rotateZ(angle * 0.64);
   
-  stroke(30);
-  fill(255);
+  stroke(255);
+  noFill();
   for (Box b : sponge) { 
     b.show();
   }
   popMatrix();
   
-  noFill();
-  stroke(255);
-  pushMatrix();
-  translate(width / 2, height / 2);
-  rotateX(angle2);
-  rotateY(angle2 * 0.4);
-  rotateZ(angle2 * 0.64);
-  container.show();
-  popMatrix();
-  
-  angle += 0.01;
-  angle2 -= 0.01;
+  angle += 0.02;
   
   if (isIncreasing) {
     count += 0.2;
@@ -77,5 +62,7 @@ void draw() {
   }
   
   if (count >= 4) isIncreasing = false;
-  if (count <= 1) isIncreasing = true;
+  if (count <= 0) isIncreasing = true;
+  
+  saveFrame("frame" + frameCount + ".png");
 }
