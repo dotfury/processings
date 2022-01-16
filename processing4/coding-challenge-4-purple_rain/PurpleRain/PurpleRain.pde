@@ -17,7 +17,8 @@ void setup() {
 }
 
 void draw() {
-  background(230, 230, 250);
+  //background(230, 230, 250);
+  background(0);
   
   wind = new PVector(map(mouseX, 0, width, -0.03, 0.03), 0, map(mouseY, 0, height, -0.03, 0.03));
   
@@ -28,5 +29,5 @@ void draw() {
     drop.display();
   }
   
-  //saveFrame(frameCount + ".jpg");
+  saveFrame(frameCount + ".jpg");
 }

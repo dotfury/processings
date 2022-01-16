@@ -14,3 +14,6 @@ out
 *.mp4
 *.gif
 *.sh
+*.dll
+*.exe
+*.h
