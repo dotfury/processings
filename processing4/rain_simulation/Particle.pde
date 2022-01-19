@@ -5,9 +5,8 @@ class Particle {
   
   int lifeTime;
   
-  Particle(PVector _position, int _lifeTime) {
+  Particle(PVector _position) {
     position = _position;
-    lifeTime = _lifeTime;
     acceleration = new PVector();
     velocity = new PVector(random(-0.2, 0.2), random(-0.2, -0.5), random(-0.2, 0.2));
   }
@@ -17,7 +16,6 @@ class Particle {
   }
   
   void update() {
-    lifeTime--;
     applyForce(gravity);
     
     velocity.add(acceleration);
@@ -27,7 +25,7 @@ class Particle {
   }
   
   void display() {
-    stroke(150, 150, 255, lifeTime);
+    stroke(150, 150, 255, 50);
     
     pushMatrix();
     translate(position.x, position.y, position.z);

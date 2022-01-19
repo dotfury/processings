@@ -3,6 +3,8 @@ class Collision {
   
   ArrayList<Particle> particles;
   
+  Ring ring;
+  
   int particleCount;
   int lifeTime;
   
@@ -10,10 +12,11 @@ class Collision {
     position = _position;
     particles = new ArrayList<Particle>();
     particleCount = round(random(1, 2));
-    lifeTime = round(random(20, 30));
+    lifeTime = round(random(15, 20));
+    ring = new Ring(position.copy());
     
     for (int i = 0; i < particleCount; i++) {
-      particles.add(new Particle(position.copy(), lifeTime));
+      particles.add(new Particle(position.copy()));
     }
   }
   
@@ -24,12 +27,16 @@ class Collision {
   void update() {
     this.lifeTime--;
     
+    ring.update();
+    
     for (Particle particle : particles) {
       particle.update();
     }
   }
   
   void display() {
+    ring.display();
+    
     for (Particle particle : particles) {
       particle.display();
     }

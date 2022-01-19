@@ -6,7 +6,7 @@ PVector wind;
 Drop[] drops = new Drop[dropCount];
 
 void setup() {
-  size(640, 360, P3D);
+  size(600, 600, P3D);
   strokeWeight(1);
   
   gravity = new PVector(0, 0.01, 0);
@@ -20,7 +20,7 @@ void setup() {
 void draw() {
   background(30);
   
-  wind = new PVector(map(mouseX, 0, width, -0.03, 0.03), 0, map(mouseY, 0, height, -0.03, 0.03));
+  wind = new PVector(map(mouseX, 0, width, -0.03, 0.03), 0, map(mouseY, 0, height, -0.02, 0.02));
   
   for (Drop drop : drops) {
     drop.applyForce(gravity);
