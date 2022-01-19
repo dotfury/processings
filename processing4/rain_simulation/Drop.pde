@@ -5,20 +5,32 @@ class Drop {
   
   float dropLength;
   
+  boolean collided;
+  
+  Collision collision;
+  
   Drop() {
     position = new PVector(random(width), random(-200, height), random(-10, 20));
     velocity = new PVector(0, map(position.z, -10, 20, 4, 8), 0);
     acceleration = new PVector(0, 0, 0);
     dropLength = map(position.z, 0, 20, 10, 16);
+    collided = false;
   }
   
   void checkEdges() {
     if (position.y > height) {
-      position = new PVector(random(width), random(-100, -200), random(-10, 20));
-      velocity = new PVector(0, map(position.z, -10, 20, 4, 8), 0);
-      acceleration = new PVector(0, 0, 0);
-      dropLength = map(position.z, 0, 20, 10, 16);
+      collided = true;
+      collision = new Collision(position.copy());
     }
+  }
+  
+  void resetDrop() {
+    position = new PVector(random(width), random(-100, -200), random(-10, 20));
+    velocity = new PVector(0, map(position.z, -10, 20, 4, 8), 0);
+    acceleration = new PVector(0, 0, 0);
+    dropLength = map(position.z, 0, 20, 10, 16);
+    collided = false;
+    collision = null;
   }
   
   void applyForce(PVector force) {
@@ -26,20 +38,31 @@ class Drop {
   }
   
   void update() {
-    velocity.add(acceleration);
-    position.add(velocity);
-    checkEdges();
+    if (!collided) {
+      velocity.add(acceleration);
+      position.add(velocity);
+      checkEdges();
     
-    acceleration.mult(0);
+      acceleration.mult(0);
+    }
   }
   
   void display() {
-    stroke(150, 150, 255, map(position.z, 0, 20, 100, 255));
+    if (collided) {
+      if (collision.dead()) {
+        resetDrop();
+      } else {
+        collision.update();
+        collision.display();
+      }
+    } else {
+      stroke(150, 150, 255, map(position.z, 0, 20, 150, 255));
     
-    pushMatrix();
-    translate(position.x, position.y, position.z);
-    line(position.x, position.y, position.x, position.y + dropLength);
-    ellipse(position.x, position.y + dropLength, 1, 1);
-    popMatrix();
+      pushMatrix();
+      translate(position.x, position.y, position.z);
+      line(0, 0, 0, dropLength);
+      ellipse(0, dropLength, 1, 1);
+      popMatrix();
+    }
   }
 }
