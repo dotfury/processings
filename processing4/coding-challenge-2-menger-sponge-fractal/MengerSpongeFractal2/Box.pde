@@ -1,9 +1,13 @@
 class Box {
   PVector position;
+  PVector startPosition;
+  PVector secondaryPosition;
   float size;
   
   Box(float x, float y, float z, float _size) {
     position = new PVector(x, y, z);
+    startPosition = new PVector(x, y, z);
+    secondaryPosition = new PVector(x + random(-200, 200), y + random(-200, 200), z + random(-200, 200));
     size = _size;
   }
   
@@ -33,6 +37,24 @@ class Box {
     }
     
     return boxes;
+  }
+  
+  void update() {
+    if (isConnected) {
+      float distance = dist(position.x, position.y, position.z, startPosition.x, startPosition.y, startPosition.z);
+      if (distance > 0) {
+        PVector desired = PVector.sub(startPosition, position);
+        desired.mult(0.1);
+        position.add(desired);
+      }
+    } else {
+      float distance = dist(position.x, position.y, position.z, secondaryPosition.x, secondaryPosition.y, secondaryPosition.z);
+      if (distance > 0) {
+        PVector desired = PVector.sub(secondaryPosition, position);
+        desired.mult(0.1);
+        position.add(desired);
+      }
+    }
   }
   
   void show() {
