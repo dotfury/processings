@@ -4,11 +4,15 @@ class Planet {
   float distance;
   float orbitSpeed;
   
+  PVector v;
+  
   Planet[] planets;
   
   Planet(float _radius, float _distance, float _orbitSpeed) {
+    v = PVector.random3D();
     radius = _radius;
     distance = _distance;
+    v.mult(distance);
     angle = random(TWO_PI);
     orbitSpeed = _orbitSpeed;
   }
@@ -27,23 +31,34 @@ class Planet {
     planets = new Planet[total];
     
     for (int i = 0; i < planets.length; i++) {
-      float r = radius / (level * 1.2);
-      float d = random(75, 300);
-      planets[i] = new Planet(r, d / level, random(-0.01, 0.01));
-      if (level < 3) {
-        int count = int(random(0, 4));
+      float r = radius / (level * 2);
+      float d = random(radius + r, (radius + r) * 2);
+      planets[i] = new Planet(r, d, random(-0.1, 0.1));
+      if (level < 2) {
+        int count = int(random(0, 3));
         planets[i].spawnMoons(count, level + 1);
       }
     }
   }
   
   void display() {
-    fill(255, 100);
+    fill(255);
+    noStroke();
     
     pushMatrix();
-    rotate(angle);
-    translate(distance, 0);
-    ellipse(0, 0, radius * 2, radius * 2);
+    PVector v2 = new PVector(1, 0, 1);
+    PVector perp = v.cross(v2);
+    rotate(angle, perp.x, perp.y, perp.z);
+    
+    // cross product vectors
+    //stroke(255, 0, 0);
+    //line(0, 0, 0, v.x, v.y, v.z);
+    //stroke(0, 0, 255);
+    //line(0, 0, 0, perp.x, perp.y, perp.z);
+    //noStroke();
+    
+    translate(v.x, v.y, v.z);
+    sphere(radius);
     
     if (planets != null) {  
       for (int i = 0; i < planets.length; i++) {
