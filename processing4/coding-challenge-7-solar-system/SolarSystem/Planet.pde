@@ -6,15 +6,22 @@ class Planet {
   
   PVector v;
   
+  PShape globe;
+  
   Planet[] planets;
   
-  Planet(float _radius, float _distance, float _orbitSpeed) {
+  Planet(float _radius, float _distance, float _orbitSpeed, PImage img) {
     v = PVector.random3D();
     radius = _radius;
     distance = _distance;
     v.mult(distance);
     angle = random(TWO_PI);
     orbitSpeed = _orbitSpeed;
+    
+    noStroke();
+    noFill();
+    globe = createShape(SPHERE, radius);
+    globe.setTexture(img);
   }
   
   void orbit() {
@@ -33,7 +40,7 @@ class Planet {
     for (int i = 0; i < planets.length; i++) {
       float r = radius / (level * 2);
       float d = random(radius + r, (radius + r) * 2);
-      planets[i] = new Planet(r, d, random(-0.1, 0.1));
+      planets[i] = new Planet(r, d, random(-0.1, 0.1), textures[int(random(0, textures.length))]);
       if (level < 2) {
         int count = int(random(0, 3));
         planets[i].spawnMoons(count, level + 1);
@@ -58,7 +65,8 @@ class Planet {
     //noStroke();
     
     translate(v.x, v.y, v.z);
-    sphere(radius);
+    //sphere(radius);
+    shape(globe);
     
     if (planets != null) {  
       for (int i = 0; i < planets.length; i++) {
