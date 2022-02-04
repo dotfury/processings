@@ -9,6 +9,8 @@ class Planet {
   color renderColor;
   
   Planet[] planets;
+
+  ArrayList<Particle> particles;
   
   Planet(float _radius, float _distance, float _orbitSpeed) {
     v = PVector.random3D();
@@ -18,6 +20,7 @@ class Planet {
     angle = random(TWO_PI);
     orbitSpeed = _orbitSpeed;
     renderColor = colors[int(random(colors.length))];
+    particles = new ArrayList<Particle>();
     
     noStroke();
     noFill();
@@ -26,7 +29,7 @@ class Planet {
   void orbit() {
     angle += orbitSpeed;
     
-    if (planets != null) {  
+    if (planets != null) {
       for (int i = 0; i < planets.length; i++) {
         planets[i].orbit();
       }
@@ -52,7 +55,7 @@ class Planet {
   }
   
   void display() {
-    fill(renderColor);
+    fill(255);
     noStroke();
     
     pushMatrix();
@@ -68,7 +71,9 @@ class Planet {
     //noStroke();
     
     translate(v.x, v.y, v.z);
-    sphere(radius);
+    //sphere(radius);
+    
+    particles.add(new Particle(random(v.x - 2, v.x + 2), random(v.y -2, v.y + 2), random(v.z - 2, v.z + 2), angle, renderColor));
     
     if (planets != null) {  
       for (int i = 0; i < planets.length; i++) {
@@ -76,5 +81,12 @@ class Planet {
       }
     }
     popMatrix();
+    
+    for (Particle p : particles) {
+      if (!p.dead()) {
+        p.update();
+        p.display();
+      }
+    }
   }
 }
