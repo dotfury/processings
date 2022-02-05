@@ -5,7 +5,6 @@ class Particle {
   float angle;
   
   PVector position;
-  PVector velocity;
   
   int lifeTime;
   int baseLifeTime;
@@ -14,10 +13,8 @@ class Particle {
   
   Particle(float x, float y, float z, float _angle, color _renderColor) {
     position = new PVector(x, y, z);
-    velocity = PVector.random3D();
-    velocity.mult(random(1.1, 2));
     renderColor = _renderColor;
-    baseLifeTime = int(random(10, 20));
+    baseLifeTime = int(random(10, 15));
     angle = _angle;
     lifeTime = baseLifeTime;
   }
@@ -35,6 +32,7 @@ class Particle {
     int size = round(map(lifeTime, 0, baseLifeTime, 1, 10));
     
     fill(renderColor);
+    strokeWeight(1);
     
     pushMatrix();
     PVector v2 = new PVector(1, 0, 1);

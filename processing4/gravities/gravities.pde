@@ -1,30 +1,34 @@
-import peasy.*;
+float sceneAngle;
 
-Planet sun;
-
-PeasyCam cam;
+Nucleus nucleus;
 
 color[] colors = new color[4];
 
 void setup() {
   size(600, 600, P3D);
   
+  sceneAngle = 0;
+  
   colors[0] = color(57, 212, 203);
   colors[1] = color(57, 135, 203);
   colors[2] = color(57, 212, 121);
   colors[3] = color(178, 117, 203);
 
-  cam = new PeasyCam(this, 500);
-  sun = new Planet(50, 0, 0);
-  sun.spawnMoons(20);
+  nucleus = new Nucleus();
+  nucleus.spawnOrbitors(15);
 }
 
 void draw() {
   background(30);
   
-  lights();
-  pointLight(255, 255, 255, 0, 0, 0);
+  pushMatrix();
+  translate(width / 2, height / 2, 0);
+  rotateX(sceneAngle);
+  rotateY(sceneAngle * 1.2);
+  rotateZ(sceneAngle * 0.9);
+  nucleus.display();
+  nucleus.orbit();
+  popMatrix();
   
-  sun.display();
-  sun.orbit();
+  sceneAngle += 0.004;
 }
