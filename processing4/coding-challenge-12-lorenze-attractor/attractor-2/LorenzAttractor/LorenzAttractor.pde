@@ -64,6 +64,4 @@ void draw() {
   endShape();
   
   angle += 0.01;
-  
-  saveFrame("frame" + frameCount + ".png");
 }
