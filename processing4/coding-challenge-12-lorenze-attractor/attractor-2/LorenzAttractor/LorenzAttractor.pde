@@ -16,7 +16,7 @@ float angle = 0.0;
 
 void setup() {
   size(600, 600, P3D);
-  //colorMode(HSB);
+  colorMode(HSB);
   stroke(255);
   strokeWeight(1);
   noFill();
@@ -36,34 +36,34 @@ void draw() {
   points.add(new PVector(x, y, z));
   
   translate(width / 2, height / 2);
-  scale(2);
+  scale(map(sin(angle), -1, 1, 2, 5));
   
   rotateX(angle);
   rotateY(angle * 1.6);
   rotateZ(angle * 1.2);
  
   beginShape();
-  //float hu = 0;
-  //for (PVector v : points) {
-  //  stroke(hu, 255, 255);
-  //  vertex(v.x, v.y, v.z);
-  //  hu += 0.1;
-  //  if (hu > 255) {
-  //    hu = 0;
-  //  }
-  //}
+  float hu = 0;
   
   int pointsLength = points.size();
   
   if (pointsLength > pointLimit) {
     int j = 0;
     for (int i = pointsLength - 1; j < pointLimit; i--) {
+      stroke(hu, map(sin(angle), -1, 1, 50, 100), 255);
       vertex(points.get(i).x, points.get(i).y, points.get(i).z);
       j += 1;
+      
+      hu += random(0.1, 2);
+      if (hu > 360) {
+        hu = 0;
+      }
     }
   }
   
   endShape();
   
   angle += 0.01;
+  
+  saveFrame("frame" + frameCount + ".png");
 }
