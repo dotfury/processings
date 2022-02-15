@@ -10,7 +10,7 @@ class Particle {
     position = _position;
     velocity = PVector.random3D();
     velocity.mult(random(0.01, 0.02));
-    lifeTime = 160;
+    lifeTime = 150;
     renderColor = colors[int(random(colors.length))];
   }
   
@@ -28,7 +28,7 @@ class Particle {
     fill(renderColor);
     pushMatrix();
     translate(position.x, position.y, position.z);
-    box(map(sin(angle), -1, 1, 1, 2));
+    box(1);
     popMatrix();
   }
 }

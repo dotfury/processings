@@ -2,25 +2,25 @@ float x = 0.01;
 float y = 0;
 float z = 0;
 
-float sigma = 10;
-float rho = 28;
-float beta = 8.0 / 3.0;
+float angle = 0.0;
 
-float dt = 0.01;
+//float sigma = 9;
+float sigma = map(sin(angle), -1, 1, 3, 9);
+//float rho = 25;
+float rho = map(sin(angle), -1, 1, 11, 28);
+float beta = 8.0 / 2.0;
+
+float dt = 0.015;
 
 ArrayList<PVector> points = new ArrayList<PVector>();
 ArrayList<Particle> particles = new ArrayList<Particle>();
 
 int pointLimit = 1;
 
-float angle = 0.0;
-
 color[] colors = new color[4];
 
 void setup() {
   size(600, 600, P3D);
-  stroke(0);
-  strokeWeight(1);
   noStroke();
   
   colors[0] = color(57, 212, 203);
@@ -45,8 +45,8 @@ void draw() {
   translate(width / 2, height / 2);
   scale(5);
   
-  rotateX(angle);
-  rotateY(angle * 1.6);
+  rotateX(angle * 1.1);
+  rotateY(angle);
   rotateZ(angle * 1.2);
  
   
