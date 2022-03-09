@@ -29,7 +29,7 @@ class Branch {
   
   void display() {
     if (parent != null) {
-      line(position.x, position.y, parent.position.x, parent.position.y);
+      line(position.x, position.y, position.z, parent.position.x, parent.position.y, parent.position.z);
     }
   }
 }

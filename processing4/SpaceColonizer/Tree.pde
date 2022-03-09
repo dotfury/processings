@@ -7,7 +7,7 @@ class Tree {
     leaves = new ArrayList<Leaf>();
     branches = new ArrayList<Branch>();
     // Parent, Position, Direction
-    root = new Branch(null, new PVector(width / 2, height), new PVector(0, -1));
+    root = new Branch(null, new PVector(0, 0), new PVector(0, -1));
     
     for (int i = 0; i < leafCount; i++) {
       leaves.add(new Leaf());
@@ -66,23 +66,33 @@ class Tree {
       Branch branch = branches.get(i);
       
       if (branch.count > 0) {
-        branch.direction.div(branch.count + 1);
+        branch.direction.div(branch.count);
+        PVector random = PVector.random2D();
+        random.setMag(0.3);
+        branch.direction.add(random);
+        branch.direction.normalize();
         branches.add(branch.next());
+        branch.reset();
       }
-      
-      branch.reset();
     }
   }
   
   void display() {
-    for (Branch branch : branches) {
-      branch.display();
-    }
-    
-    for (Leaf leaf : leaves) {
-      if (!leaf.reached) { 
-        leaf.display();
+    for (int i = 0; i < branches.size(); i++) {
+      Branch branch = branches.get(i);
+      
+      if (branch.parent != null) {
+        float sw = map(i, 0, branches.size(), 7, 0);
+        strokeWeight(sw);
+        stroke(255);
+        branch.display();
       }
     }
+    
+    //for (Leaf leaf : leaves) {
+    //  if (!leaf.reached) { 
+    //    leaf.display();
+    //  }
+    //}
   }
 }
