@@ -11,7 +11,7 @@ class Tree {
   void setupTree() {
     leaves = new ArrayList<Leaf>();
     branches = new ArrayList<Branch>();
-    lifeTime = int(random(200, 600));
+    lifeTime = int(random(100, 200));
     // Parent, Position, Direction
     root = new Branch(null, new PVector(random(-2, 2), random(-2, 2), 10), new PVector(0, random(-1, 1)), 1);
     
@@ -99,7 +99,6 @@ class Tree {
         float sw = map(i, 0, branches.size(), 4, 0);
         strokeWeight(sw);
         stroke(255);
-        branch.jitter();
         branch.display(lifeTime);
       }
     }

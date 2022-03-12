@@ -6,7 +6,6 @@ class Branch {
   int count;
   int branchLength;
   int index;
-  float colorAngle = 0;
   
   Branch(Branch _parent, PVector _pos, PVector _dir, int _index) {
     parent = _parent;
@@ -39,7 +38,5 @@ class Branch {
       stroke(int(map(index, 1, 50, 200, 255)), int(map(index, 1, 50, 0, 255)), int(map(index, 1, 50, 0, 255)), int(map(lifeTime, 0, 255, 0, 255)));
       line(position.x, position.y, position.z, parent.position.x, parent.position.y, parent.position.z);
     }
-    
-    colorAngle += 0.01;
   }
 }
