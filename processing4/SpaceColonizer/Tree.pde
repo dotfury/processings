@@ -2,12 +2,18 @@ class Tree {
   ArrayList<Leaf> leaves;
   ArrayList<Branch> branches;
   Branch root;
+  int lifeTime;
   
   Tree() {
+    setupTree();
+  }
+  
+  void setupTree() {
     leaves = new ArrayList<Leaf>();
     branches = new ArrayList<Branch>();
+    lifeTime = int(random(200, 600));
     // Parent, Position, Direction
-    root = new Branch(null, new PVector(0, 0), new PVector(0, -1));
+    root = new Branch(null, new PVector(random(-2, 2), random(-2, 2), 10), new PVector(0, random(-1, 1)), 1);
     
     for (int i = 0; i < leafCount; i++) {
       leaves.add(new Leaf());
@@ -31,6 +37,14 @@ class Tree {
         branches.add(current);
       }
     }
+  }
+  
+  void update() {
+    lifeTime--;
+  }
+  
+  boolean dead() {
+    return lifeTime <= 0;
   }
   
   void grow() {
@@ -82,17 +96,14 @@ class Tree {
       Branch branch = branches.get(i);
       
       if (branch.parent != null) {
-        float sw = map(i, 0, branches.size(), 7, 0);
+        float sw = map(i, 0, branches.size(), 4, 0);
         strokeWeight(sw);
         stroke(255);
-        branch.display();
+        branch.jitter();
+        branch.display(lifeTime);
       }
     }
     
-    //for (Leaf leaf : leaves) {
-    //  if (!leaf.reached) { 
-    //    leaf.display();
-    //  }
-    //}
+    branches.add(root.next());
   }
 }

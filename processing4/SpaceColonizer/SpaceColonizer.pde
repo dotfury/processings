@@ -1,23 +1,47 @@
-import peasy.*;
+ArrayList<Tree> trees;
 
-PeasyCam cam;
-
-Tree tree;
-
-int leafCount = 2000;
+int leafCount = 500;
 
 float min_distance = 5;
 float max_distance = 50;
+float angle = 0;
+
+PVector centerPosition;
 
 void setup() {
+  frameRate(30);
   size(600, 600, P3D);
-  cam = new PeasyCam(this, 500);
-  tree = new Tree();
+  
+  centerPosition = new PVector(width / 2, height / 2, 0);
+  
+  trees = new ArrayList<Tree>();
+  
+  for (int i = 0; i < 5; i++) {
+    trees.add(new Tree());
+  }
 }
 
 void draw() {
-  background(51);
+  background(30);
   
-  tree.display();
-  tree.grow();
+  pushMatrix();
+  translate(width / 2, height / 2, 0);
+  rotateX(angle);
+  rotateY(angle * 1.1);
+  rotateZ(angle * 1.6);
+  
+  for (int i = 0; i < trees.size(); i++) {
+    Tree tree = trees.get(i);
+    
+    if (tree.dead()) {
+      tree.setupTree();
+    } else {
+      tree.update();
+      tree.display();
+      tree.grow();
+    }
+  }
+  popMatrix();
+  
+  angle += 0.005;
 }
