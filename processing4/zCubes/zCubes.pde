@@ -1,4 +1,4 @@
-int maxZ = 70;
+int maxZ = 80;
 int scale = 21;
 int space = 10;
 
@@ -22,7 +22,7 @@ void setup() {
       float yPosition = y * space;
       float distance = dist(xPosition, yPosition, 0, 0);
       
-      boxes.add(new Box(xPosition, yPosition, int(map(distance, 0, 296, -maxZ, maxZ))));
+      boxes.add(new Box(xPosition, yPosition, int(map(distance, 0, 300, -maxZ, maxZ))));
     }
   }
 }
@@ -30,10 +30,9 @@ void setup() {
 void draw() {
   background(30);
   
-  translate(0, height / 2, -200);
-  rotateX(PI / 2);
+  translate(width / 2, height / 2, 0);
   
-  translate(width / 2, 0, -100);
+  rotateX(PI / 2);
   rotateZ(angle);
   
   for (Box b : boxes) {

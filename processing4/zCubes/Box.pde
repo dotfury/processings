@@ -21,12 +21,12 @@ class Box {
   }
   
   void display() {
-    stroke(255, map(position.z, -maxZ, maxZ, 10, 255));
+    // color(v1, v2, v3, alpha)
+    color c = color(map(position.z, -maxZ, maxZ, 50, 155), map(position.z, -maxZ, maxZ, 50, 200), map(position.z, -maxZ, maxZ, 10, 255), map(position.z, -maxZ, maxZ, 10, 255));
+    stroke(c);
     
     pushMatrix();
-    translate(position.x + width / 2, position.y + height / 2, position.z);
-    //rotateX(map(position.z, -maxZ, maxZ, 0, TWO_PI));
-    //rotateY(map(position.z, -maxZ, maxZ, 0, TWO_PI));
+    translate(position.x, position.y, position.z);
     box(map(position.z, -maxZ, maxZ, 5, 7));
     popMatrix();
   }
