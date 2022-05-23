@@ -1,6 +1,6 @@
 class Box {
   PVector position;
-  PVector velocity = new PVector(0, 0, 1);
+  PVector velocity = new PVector(0, 0, 0.6);
   
   boolean isAdding = true;
   
@@ -21,11 +21,13 @@ class Box {
   }
   
   void display() {
-    stroke(255, map(this.position.z, -maxZ, maxZ, 30, 255));
+    stroke(255, map(position.z, -maxZ, maxZ, 10, 255));
     
     pushMatrix();
     translate(position.x + width / 2, position.y + height / 2, position.z);
-    box(map(position.z, -maxZ, maxZ, 3, 7));
+    //rotateX(map(position.z, -maxZ, maxZ, 0, TWO_PI));
+    //rotateY(map(position.z, -maxZ, maxZ, 0, TWO_PI));
+    box(map(position.z, -maxZ, maxZ, 5, 7));
     popMatrix();
   }
 }
