@@ -1,6 +1,6 @@
 class Box {
   PVector position;
-  PVector velocity = new PVector(0, 0, 0.6);
+  PVector velocity = new PVector(0, 0, 1);
   
   boolean isAdding = true;
   
@@ -22,7 +22,7 @@ class Box {
   
   void display() {
     // color(v1, v2, v3, alpha)
-    color c = color(map(position.z, -maxZ, maxZ, 50, 155), map(position.z, -maxZ, maxZ, 50, 200), map(position.z, -maxZ, maxZ, 10, 255), map(position.z, -maxZ, maxZ, 10, 255));
+    color c = color(map(position.z, -maxZ, maxZ, 50, 100), map(position.z, -maxZ, maxZ, 20, 90), map(position.z, -maxZ, maxZ, 30, 255), map(position.z, -maxZ, maxZ, 100, 255));
     stroke(c);
     
     pushMatrix();

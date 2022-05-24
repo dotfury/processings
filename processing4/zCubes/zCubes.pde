@@ -1,4 +1,4 @@
-int maxZ = 80;
+int maxZ = 60;
 int scale = 21;
 int space = 10;
 
@@ -30,10 +30,10 @@ void setup() {
 void draw() {
   background(30);
   
-  translate(width / 2, height / 2, 0);
+  translate(width / 2, height / 2);
   
   rotateX(PI / 2);
-  rotateZ(angle);
+  //rotateZ(angle);
   
   for (Box b : boxes) {
     b.update();
