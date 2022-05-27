@@ -1,9 +1,9 @@
 class Box {
   PVector position;
   PVector defaultPosition;
-  PVector velocity = new PVector(0, 0, 1);
+  PVector velocity = new PVector(0, 0, 0.8);
   
-  float angle;
+  float angle = 0;
   
   Box(float x, float y, float z) {
     defaultPosition = new PVector(x, y, z);
@@ -13,7 +13,6 @@ class Box {
   
   void initBox() {
     position = defaultPosition.copy();
-    angle = 0;
   }
   
   void update() {
@@ -25,16 +24,15 @@ class Box {
   }
   
   void display() {
-    // color(v1, v2, v3, alpha)
-    //color c = color(map(position.z, -maxZ, maxZ, 50, 100), map(position.z, -maxZ, maxZ, 20, 90), map(position.z, -maxZ, maxZ, 30, 255), map(position.z, -maxZ, maxZ, 100, 255));
-    stroke(255, map(position.z, -maxZ, maxZ, 10, 100));
+    stroke(colors[int(map(position.z, -maxZ, maxZ, 0, 2))]);
     
     pushMatrix();
     translate(position.x, position.y, position.z);
-    rotateZ(angle);
+    rotateX(angle * 1.2);
+    rotateY(angle * 1.1);
     box(map(position.z, -maxZ, maxZ, 3, 10));
     popMatrix();
     
-    angle += 0.001;
+    angle += 0.01;
   }
 }

@@ -1,14 +1,20 @@
-int maxZ = 60;
+int maxZ = 70;
 int scale = 21;
-int space = 15;
+int space = 20;
 
 PVector center;
 
 ArrayList<Box> boxes;
 
+color[] colors = new color[4];
+
 void setup() {
   size(600, 600, P3D);
   noFill();
+  
+  colors[0] = color(178, 117, 203);
+  colors[1] = color(57, 135, 203);
+  colors[2] = color(57, 212, 121);
   
   boxes = new ArrayList<Box>();
   
