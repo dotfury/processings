@@ -1,4 +1,4 @@
-int maxZ = 50;
+int maxZ = 70;
 int scale = 20;
 int space = 10;
 int centerIndex = 0;
@@ -14,6 +14,7 @@ PVector[] centers = new PVector[6];
 void runApp() {
   boxes = new ArrayList<Box>();
   PVector center = centers[centerIndex % 6];
+  //PVector center = centers[0];
   
   for (int x = -scale; x < scale; x++) {
     for (int y = -scale; y < scale; y++) {
@@ -30,11 +31,13 @@ void setup() {
   size(450, 450);
   noFill();
   rectMode(CENTER);
-  frameRate(30);
+  strokeWeight(1);
+  frameRate(50);
   
   colors[0] = color(178, 117, 203);
   colors[1] = color(57, 135, 203);
   colors[2] = color(57, 212, 121);
+  //colors[3] = color(57, 212, 203);
   
   centers[0] = new PVector(0, 0);
   centers[1] = new PVector(width / 2, height / 2);
@@ -56,9 +59,11 @@ void draw() {
     b.display();
   }
   
-  if (millis() - timer >= 5000) {
+  if (millis() - timer >= 4000) {
     centerIndex++;
     runApp();
     timer = millis();
   }
+  
+  saveFrame("frame" + frameCount + ".png");
 }

@@ -1,6 +1,6 @@
 class Box {
   PVector position;
-  PVector velocity = new PVector(0, 0, 1);
+  PVector velocity = new PVector(0, 0, 2.5);
   
   int colorIndex = 0;
   
@@ -25,9 +25,11 @@ class Box {
   }
   
   void display() {
-    stroke(colors[colorIndex % 3]);
+    color c = colors[colorIndex % 3];
+    stroke(c);
+    fill(c);
     
-    float size = map(position.z, -maxZ, maxZ, 1, 10);
+    float size = map(position.z, -maxZ, maxZ, 1, 8);
     
     rect(position.x, position.y, size, size);
   }
