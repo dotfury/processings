@@ -14,7 +14,6 @@ PVector[] centers = new PVector[6];
 void runApp() {
   boxes = new ArrayList<Box>();
   PVector center = centers[centerIndex % 6];
-  //PVector center = centers[0];
   
   for (int x = -scale; x < scale; x++) {
     for (int y = -scale; y < scale; y++) {
@@ -37,8 +36,7 @@ void setup() {
   colors[0] = color(178, 117, 203);
   colors[1] = color(57, 135, 203);
   colors[2] = color(57, 212, 121);
-  //colors[3] = color(57, 212, 203);
-  
+
   centers[0] = new PVector(0, 0);
   centers[1] = new PVector(width / 2, height / 2);
   centers[2] = new PVector(width / 3, height / 3);
@@ -64,6 +62,4 @@ void draw() {
     runApp();
     timer = millis();
   }
-  
-  saveFrame("frame" + frameCount + ".png");
 }
