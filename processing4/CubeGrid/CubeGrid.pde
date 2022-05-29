@@ -1,4 +1,4 @@
-int maxZ = 70;
+int maxZ = 200;
 int scale = 21;
 int space = 20;
 

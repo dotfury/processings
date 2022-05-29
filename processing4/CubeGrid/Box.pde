@@ -30,6 +30,7 @@ class Box {
     translate(position.x, position.y, position.z);
     rotateX(angle * 1.2);
     rotateY(angle * 1.1);
+    rotateZ(angle * 1.3);
     box(map(position.z, -maxZ, maxZ, 3, 10));
     popMatrix();
     
