@@ -2,13 +2,15 @@ import peasy.*;
 
 PeasyCam cam;
 
-int total = 20;
+int total = 40;
 
-float radius = 200;
+float radius;
 
 void setup() {
   size(600, 600, P3D);
   cam = new PeasyCam(this, 500);
+  
+  radius = 100;
 }
 
 void draw() {
@@ -28,5 +30,11 @@ void draw() {
       strokeWeight(4);
       point(x, y, z);
     }
+    
+    //radius += 0.001;
+  }
+  
+  if (radius >= 200) {
+    radius = 100;
   }
 }
