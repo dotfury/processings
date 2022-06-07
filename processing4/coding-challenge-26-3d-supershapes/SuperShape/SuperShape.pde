@@ -12,11 +12,17 @@ float offset = 0;
 
 PVector[][] globe;
 
+color[] colors = new color[3];
+
 void setup() {
   size(600, 600, P3D);
   cam = new PeasyCam(this, 500);
   
   globe = new PVector[total + 1][total + 1];
+  
+  colors[0] = color(178, 117, 203);
+  colors[1] = color(57, 135, 203);
+  colors[2] = color(57, 212, 121);
   
   //stroke(255);
   //noFill();
@@ -38,11 +44,11 @@ float superShape(float theta, float m, float n1, float n2, float n3) {
 }
 
 void draw() {
-  m = map(mouseX, 0, width, 0, 7);
+  //m = map(mouseX, 0, width, 0, 7);
   
   background(0);
   lights();
-  colorMode(HSB);
+  //colorMode(HSB);
   
   for (int i = 0; i < total + 1; i++) {
     float latitude = map(i, 0, total, -HALF_PI, HALF_PI);
@@ -58,12 +64,14 @@ void draw() {
     }
   }
   
-  offset += 5;
+  offset += 0.02;
   for (int i = 0; i < total; i++) {
-    float hu = map(i, 0, total, 0, 255 * 6);
-    //fill((hu + offset) % 255, 255, 255);
-    noFill();
-    stroke((hu + offset) % 255, 255, 255);
+    float hu = map(i, 0, total, 0, 2);
+    color c = colors[int((hu + offset) % 3)];
+    fill(c);
+    //noFill();
+    //stroke((hu + offset) % 255, 255, 255);
+    stroke(c);
     
     beginShape(TRIANGLE_STRIP);
     for (int j = 0; j < total + 1; j++) {      

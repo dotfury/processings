@@ -8,7 +8,7 @@ PVector center;
 
 ArrayList<Box> boxes;
 
-color[] colors = new color[4];
+color[] colors = new color[3];
 PVector[] centers = new PVector[6];
 
 void runApp() {
