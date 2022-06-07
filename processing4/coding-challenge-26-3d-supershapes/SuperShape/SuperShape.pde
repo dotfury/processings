@@ -1,12 +1,14 @@
 import peasy.*;
 
 PeasyCam cam;
-// 14:54
+
 int total = 75;
 
+float m = 0;
 float radius = 200;
 float a = 1;
 float b = 1;
+float offset = 0;
 
 PVector[][] globe;
 
@@ -16,8 +18,9 @@ void setup() {
   
   globe = new PVector[total + 1][total + 1];
   
-  stroke(255);
-  noFill();
+  //stroke(255);
+  //noFill();
+  noStroke();
 }
 
 float superShape(float theta, float m, float n1, float n2, float n3) {  
@@ -35,16 +38,18 @@ float superShape(float theta, float m, float n1, float n2, float n3) {
 }
 
 void draw() {
+  m = map(mouseX, 0, width, 0, 7);
+  
   background(0);
   lights();
-  //colorMode(HSB);
+  colorMode(HSB);
   
   for (int i = 0; i < total + 1; i++) {
     float latitude = map(i, 0, total, -HALF_PI, HALF_PI);
-    float r2 = superShape(latitude, 7, 0.2, 1.7, 1.7);
+    float r2 = superShape(latitude, m, 10, 10, 10);
     for (int j = 0; j < total + 1; j++) {
       float longitude = map(j, 0, total, -PI, PI);
-      float r1 = superShape(longitude, 7, 0.2, 1.7, 1.7);
+      float r1 = superShape(longitude, m, 60, 100, 30);
       float x = radius * r1 * cos(longitude) * r2 * cos(latitude);
       float y = radius * r1 * sin(longitude) * r2 *cos(latitude);
       float z = radius * r2 * sin(latitude);
@@ -53,9 +58,12 @@ void draw() {
     }
   }
   
+  offset += 5;
   for (int i = 0; i < total; i++) {
-    //float hu = map(i, 0, total, 0, 255 * 6);
-    //fill(hu % 255, 255, 255);
+    float hu = map(i, 0, total, 0, 255 * 6);
+    //fill((hu + offset) % 255, 255, 255);
+    noFill();
+    stroke((hu + offset) % 255, 255, 255);
     
     beginShape(TRIANGLE_STRIP);
     for (int j = 0; j < total + 1; j++) {      
