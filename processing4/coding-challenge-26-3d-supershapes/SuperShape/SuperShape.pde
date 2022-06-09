@@ -14,6 +14,8 @@ PVector[][] globe;
 
 color[] colors = new color[3];
 
+Mover mover;
+
 void setup() {
   size(600, 600, P3D);
   
@@ -22,6 +24,8 @@ void setup() {
   colors[0] = color(178, 117, 203);
   colors[1] = color(57, 135, 203);
   colors[2] = color(57, 212, 121);
+  
+  mover = new Mover(random(1) * width, random(1) * height);
   
   noFill();
 }
@@ -41,8 +45,8 @@ float superShape(float theta, float m, float n1, float n2, float n3) {
 }
 
 void draw() {
-  m = map(mouseX, 0, width, 0, 17);
-  n1 = map(mouseX, 0, width, 0.3, 19/6);
+  m = map(mover.position.x, 0, width, 0, 17);
+  n1 = map(mover.position.y, 0, width, 0.3, 19/6);
   n2 = map(mouseY, 0, height, 0.2, 5.5);
   
   background(40);
@@ -88,4 +92,7 @@ void draw() {
   popMatrix();
   
   angle += 0.003;
+  
+  mover.update();
+  mover.display();
 }
