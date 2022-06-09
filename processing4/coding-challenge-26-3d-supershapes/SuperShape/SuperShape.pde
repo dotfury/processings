@@ -1,7 +1,3 @@
-import peasy.*;
-
-PeasyCam cam;
-
 int total = 75;
 
 float m = 0;
@@ -9,6 +5,10 @@ float radius = 200;
 float a = 1;
 float b = 1;
 float offset = 0;
+float angle = 0;
+float n1 = 1;
+float n2 = 1;
+float n3 = 1;
 
 PVector[][] globe;
 
@@ -16,7 +16,6 @@ color[] colors = new color[3];
 
 void setup() {
   size(600, 600, P3D);
-  cam = new PeasyCam(this, 500);
   
   globe = new PVector[total + 1][total + 1];
   
@@ -24,9 +23,7 @@ void setup() {
   colors[1] = color(57, 135, 203);
   colors[2] = color(57, 212, 121);
   
-  //stroke(255);
-  //noFill();
-  noStroke();
+  noFill();
 }
 
 float superShape(float theta, float m, float n1, float n2, float n3) {  
@@ -44,18 +41,24 @@ float superShape(float theta, float m, float n1, float n2, float n3) {
 }
 
 void draw() {
-  //m = map(mouseX, 0, width, 0, 7);
+  m = map(mouseX, 0, width, 0, 17);
+  n1 = map(mouseX, 0, width, 0.3, 19/6);
+  n2 = map(mouseY, 0, height, 0.2, 5.5);
   
-  background(0);
+  background(40);
   lights();
-  //colorMode(HSB);
   
+  pushMatrix();
+  translate(width / 2, height / 2, -100);
+  rotateX(angle);
+  rotateY(angle * 1.1);
+  rotateZ(angle * 1.3);
   for (int i = 0; i < total + 1; i++) {
     float latitude = map(i, 0, total, -HALF_PI, HALF_PI);
-    float r2 = superShape(latitude, m, 10, 10, 10);
+    float r2 = superShape(latitude, m, n1, n2, n3);
     for (int j = 0; j < total + 1; j++) {
       float longitude = map(j, 0, total, -PI, PI);
-      float r1 = superShape(longitude, m, 60, 100, 30);
+      float r1 = superShape(longitude, m, n1 * 6, n2 * 10, n3 * 3);
       float x = radius * r1 * cos(longitude) * r2 * cos(latitude);
       float y = radius * r1 * sin(longitude) * r2 *cos(latitude);
       float z = radius * r2 * sin(latitude);
@@ -64,13 +67,11 @@ void draw() {
     }
   }
   
-  offset += 0.02;
+  offset += 0.04;
   for (int i = 0; i < total; i++) {
     float hu = map(i, 0, total, 0, 2);
     color c = colors[int((hu + offset) % 3)];
-    fill(c);
-    //noFill();
-    //stroke((hu + offset) % 255, 255, 255);
+
     stroke(c);
     
     beginShape(TRIANGLE_STRIP);
@@ -83,4 +84,8 @@ void draw() {
     }
     endShape();
   }
+  
+  popMatrix();
+  
+  angle += 0.003;
 }
