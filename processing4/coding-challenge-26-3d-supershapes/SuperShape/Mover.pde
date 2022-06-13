@@ -10,6 +10,7 @@ class Mover {
   Mover(float x, float y) {
     position = new PVector(x, y);
     velocity = PVector.random2D();
+    velocity.mult(random(1.5, 5));
     radius = int(random(3, 12));
   }
   

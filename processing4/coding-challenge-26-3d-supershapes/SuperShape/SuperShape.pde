@@ -14,7 +14,7 @@ PVector[][] globe;
 
 color[] colors = new color[3];
 
-Mover mover;
+Mover[] movers = new Mover[6];
 
 void setup() {
   size(600, 600, P3D);
@@ -25,7 +25,9 @@ void setup() {
   colors[1] = color(57, 135, 203);
   colors[2] = color(57, 212, 121);
   
-  mover = new Mover(random(1) * width, random(1) * height);
+  for (int i = 0; i < 6; i++) {
+    movers[i] = new Mover(random(width), random(height));
+  }
   
   noFill();
 }
@@ -45,9 +47,12 @@ float superShape(float theta, float m, float n1, float n2, float n3) {
 }
 
 void draw() {
-  m = map(mover.position.x, 0, width, 0, 17);
-  n1 = map(mover.position.y, 0, width, 0.3, 19/6);
-  n2 = map(mouseY, 0, height, 0.2, 5.5);
+  m = map(movers[0].position.x, 0, width, 0, 17);
+  n1 = map(movers[0].position.y, 0, height, 0.02, 60);
+  n2 = map(movers[1].position.x, 0, width, 0.2, 5.5);
+  n3 = map(movers[1].position.y, 0, height, 0.3, 3);
+  a = map(movers[2].position.x, 0, width, 0, 5);
+  b = map(movers[2].position.y, 0, height, 0, 3);
   
   background(40);
   lights();
@@ -73,10 +78,10 @@ void draw() {
   
   offset += 0.04;
   for (int i = 0; i < total; i++) {
-    float hu = map(i, 0, total, 0, 2);
-    color c = colors[int((hu + offset) % 3)];
+    //float hu = map(i, 0, total, 0, 2);
+    //color c = colors[int((hu + offset) % 3)];
 
-    stroke(c);
+    stroke(255);
     
     beginShape(TRIANGLE_STRIP);
     for (int j = 0; j < total + 1; j++) {      
@@ -93,6 +98,8 @@ void draw() {
   
   angle += 0.003;
   
-  mover.update();
-  mover.display();
+  for (Mover mover : movers) {
+    mover.update();
+    mover.display();
+  }
 }
