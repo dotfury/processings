@@ -1,10 +1,12 @@
-Blob[] blobs = new Blob[10];
+Blob[] blobs = new Blob[6];
+
+float angle = 0;
 
 void setup() {
-  size(640, 360);
+  size(400, 400, P3D);
   
   for (int i = 0; i < blobs.length; i++) {
-   blobs[i] = new Blob(random(width), random(height)); 
+   blobs[i] = new Blob(random(width), random(height), random(-50, 50)); 
   }
 }
 
@@ -28,8 +30,14 @@ void draw() {
   
   updatePixels();
   
+  pushMatrix();
+  rotateX(angle);
+  rotateY(angle * 1.1);
+  
   for (Blob b : blobs) {
     b.update();
-    //b.display();
   }
+  popMatrix();
+  
+  angle += 0.01;
 }
